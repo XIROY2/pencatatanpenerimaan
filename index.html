@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Sistem Penerimaan Kas - Warung Pica Bibir</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 24px 20px;
+        }
+
+        /* Container utama */
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header hijau putih */
+        .header {
+            background: white;
+            border-radius: 32px;
+            padding: 20px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 10px 25px rgba(46,125,50,0.1);
+            border-left: 8px solid #2e7d32;
+        }
+
+        .header h1 {
+            color: #1b5e20;
+            font-size: 1.9rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header h1 small {
+            font-size: 0.8rem;
+            background: #e8f5e9;
+            padding: 6px 14px;
+            border-radius: 40px;
+            color: #2e7d32;
+            font-weight: normal;
+        }
+
+        .sub {
+            color: #2e7d32;
+            margin-top: 8px;
+            font-weight: 500;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Kartu ringkasan */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 18px 22px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            border: 1px solid #dcfce7;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(46,125,50,0.12);
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #558b2f;
+            font-weight: 600;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1b5e20;
+            margin-top: 8px;
+            word-break: break-word;
+        }
+
+        .card-value small {
+            font-size: 0.9rem;
+            font-weight: normal;
+            color: #5d6b3f;
+        }
+
+        /* Dua kolom: form + tabel */
+        .two-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+        }
+
+        .form-section {
+            flex: 1.2;
+            min-width: 280px;
+            background: white;
+            border-radius: 32px;
+            padding: 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+
+        .history-section {
+            flex: 2.2;
+            min-width: 320px;
+            background: white;
+            border-radius: 32px;
+            padding: 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: #1b5e20;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-left: 5px solid #4caf50;
+            padding-left: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #2e3b2c;
+            margin-bottom: 6px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 60px;
+            border: 1.5px solid #c8e6c9;
+            font-size: 1rem;
+            transition: 0.2s;
+            background: #fefefe;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 3px rgba(46,125,50,0.2);
+        }
+
+        .price-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .price-row .form-group {
+            flex: 1;
+        }
+
+        .total-bayar {
+            background: #e8f5e9;
+            padding: 12px 18px;
+            border-radius: 40px;
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #1b5e20;
+        }
+
+        button {
+            background: #2e7d32;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        button:hover {
+            background: #1b5e20;
+            transform: scale(0.98);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-reset {
+            background: #f5f5f5;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+            margin-top: 12px;
+        }
+        .btn-reset:hover {
+            background: #ffebee;
+            color: #c62828;
+            border-color: #ef9a9a;
+        }
+
+        /* Tabel transaksi */
+        .transaksi-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .transaksi-table th {
+            text-align: left;
+            padding: 12px 8px;
+            background: #f1f8e9;
+            color: #33691e;
+            border-bottom: 2px solid #c8e6c9;
+        }
+        .transaksi-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e0f2e0;
+            vertical-align: middle;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        .badge-cash { background: #e8f5e9; color: #2e7d32; }
+        .badge-qris { background: #e0f7fa; color: #00695c; }
+
+        .hapus-transaksi {
+            background: none;
+            border: none;
+            color: #d32f2f;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: auto;
+            padding: 4px 8px;
+            margin: 0;
+        }
+        .hapus-transaksi:hover {
+            background: #ffebee;
+            transform: none;
+        }
+
+        .footer-note {
+            margin-top: 32px;
+            text-align: center;
+            color: #2e6b2f;
+            background: white;
+            border-radius: 28px;
+            padding: 16px;
+            font-size: 0.8rem;
+            border-top: 2px solid #dcfce7;
+        }
+
+        @media (max-width: 780px) {
+            body { padding: 16px; }
+            .card-value { font-size: 1.5rem; }
+        }
+
+        .alur-info {
+            background: #f9fff7;
+            border-radius: 20px;
+            padding: 12px 18px;
+            margin-top: 20px;
+            border: 1px dashed #81c784;
+            font-size: 0.8rem;
+            color: #2d572c;
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <!-- HEADER -->
+    <div class="header">
+        <h1>
+            🍛 Warung Makan Muslim Pica Bibir
+            <small>Siklus Penerimaan Kas</small>
+        </h1>
+        <div class="sub">
+            📍 Perum Unima blok B, Manado &nbsp;|&nbsp; 💰 Cash & QRIS &nbsp;|&nbsp; 📅 Laporan realtime
+        </div>
+    </div>
+
+    <!-- RINGKASAN -->
+    <div class="summary-grid" id="summaryArea">
+        <div class="card"><div class="card-title">💰 TOTAL PENERIMAAN</div><div class="card-value" id="totalPenerimaan">Rp0</div></div>
+        <div class="card"><div class="card-title">🧾 JUMLAH TRANSAKSI</div><div class="card-value" id="jmlTransaksi">0</div></div>
+        <div class="card"><div class="card-title">💵 CASH</div><div class="card-value" id="totalCash">Rp0</div></div>
+        <div class="card"><div class="card-title">📱 QRIS</div><div class="card-value" id="totalQris">Rp0</div></div>
+    </div>
+
+    <!-- DUA KOLOM UTAMA -->
+    <div class="two-columns">
+        <!-- FORM TRANSAKSI -->
+        <div class="form-section">
+            <h2>📝 Catat Transaksi Baru</h2>
+            <div class="form-group">
+                <label>🍽 Nama Menu / Item</label>
+                <input type="text" id="itemName" placeholder="Contoh: Nasi Goreng, Mie Ayam, Es Teh" autocomplete="off">
+            </div>
+            <div class="price-row">
+                <div class="form-group">
+                    <label>📦 Jumlah</label>
+                    <input type="number" id="qty" value="1" min="1">
+                </div>
+                <div class="form-group">
+                    <label>💲 Harga Satuan (Rp)</label>
+                    <input type="number" id="price" value="15000" min="0" step="500">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>💳 Metode Pembayaran</label>
+                <select id="paymentMethod">
+                    <option value="Cash">💵 Cash (Tunai)</option>
+                    <option value="QRIS">📱 QRIS</option>
+                </select>
+            </div>
+            <div class="total-bayar">
+                <span>💰 Total yang harus dibayar :</span>
+                <span id="previewTotal">Rp0</span>
+            </div>
+            <button id="saveTransactionBtn">💾 Simpan Transaksi</button>
+            <button id="resetAllBtn" class="btn-reset">🗑️ Hapus Semua Data</button>
+            
+            <div class="alur-info">
+                🔄 <strong>Alur Siklus Penerimaan (sesuai laporan proyek)</strong><br>
+                1. Pelanggan pesan → 2. Kasir masukkan item, jumlah & harga → 3. Sistem hitung total otomatis (minimalisir error)<br>
+                4. Pilih metode bayar (Cash/QRIS) → 5. Simpan transaksi → 6. Data tersimpan & perbarui ringkasan penerimaan.
+            </div>
+        </div>
+
+        <!-- DAFTAR TRANSAKSI -->
+        <div class="history-section">
+            <h2>📋 Riwayat Transaksi Hari Ini</h2>
+            <div style="overflow-x: auto;">
+                <table class="transaksi-table" id="transaksiTable">
+                    <thead>
+                        <tr><th>Waktu</th><th>Item</th><th>Jml</th><th>Total</th><th>Metode</th><th style="width: 40px;"></th></tr>
+                    </thead>
+                    <tbody id="transaksiBody">
+                        <tr><td colspan="6" style="text-align:center;">Belum ada transaksi</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-top: 16px; font-size:0.75rem; color:#5d6b3f;">
+                ✅ Data tersimpan otomatis di browser (localStorage). Tutup browser pun tetap aman.
+            </div>
+        </div>
+    </div>
+    <div class="footer-note">
+        ⚡ Sistem Informasi Akuntansi - Siklus Penerimaan | Kelompok 1 | Warung Pica Bibir | 2026
+    </div>
+</div>
+
+<script>
+    // ======================== KONFIGURASI AWAL ========================
+    let transactions = [];   // array of objects
+
+    // Key local storage
+    const STORAGE_KEY = "PicaBibir_Transaksi";
+
+    // DOM elements
+    const totalPenerimaanEl = document.getElementById('totalPenerimaan');
+    const jmlTransaksiEl = document.getElementById('jmlTransaksi');
+    const totalCashEl = document.getElementById('totalCash');
+    const totalQrisEl = document.getElementById('totalQris');
+    const transaksiBody = document.getElementById('transaksiBody');
+    const itemNameInput = document.getElementById('itemName');
+    const qtyInput = document.getElementById('qty');
+    const priceInput = document.getElementById('price');
+    const paymentMethodSelect = document.getElementById('paymentMethod');
+    const previewTotalSpan = document.getElementById('previewTotal');
+    const saveBtn = document.getElementById('saveTransactionBtn');
+    const resetAllBtn = document.getElementById('resetAllBtn');
+
+    // Helper: format Rupiah
+    function formatRupiah(angka) {
+        return 'Rp' + new Intl.NumberFormat('id-ID').format(angka);
+    }
+
+    // Preview total saat jumlah atau harga berubah
+    function updatePreviewTotal() {
+        let qty = parseInt(qtyInput.value) || 0;
+        let price = parseInt(priceInput.value) || 0;
+        let total = qty * price;
+        previewTotalSpan.innerText = formatRupiah(total);
+        return total;
+    }
+
+    // Load data dari localStorage
+    function loadTransactions() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if(stored) {
+            try {
+                transactions = JSON.parse(stored);
+                // validasi: pastikan setiap objek punya properti yang benar
+                if(!Array.isArray(transactions)) transactions = [];
+            } catch(e) { transactions = []; }
+        } else {
+            // data contoh untuk demo (sebagai gambaran)
+            transactions = [];
+            // optional: tambah contoh 2 transaksi agar tidak kosong ?
+            // Untuk kebersihan, biarkan kosong.
+        }
+        renderAll();
+    }
+
+    // Simpan ke localStorage
+    function persistTransactions() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
+    }
+
+    // Menambah transaksi baru
+    function addTransaction(item, qty, price, method) {
+        if(!item.trim()) {
+            alert("Nama menu / item tidak boleh kosong!");
+            return false;
+        }
+        if(qty <= 0 || price <= 0) {
+            alert("Jumlah dan harga harus lebih dari 0");
+            return false;
+        }
+        const total = qty * price;
+        const now = new Date();
+        const waktuStr = `${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+        
+        const newTrans = {
+            id: Date.now() + Math.random(),
+            waktu: waktuStr,
+            item: item.trim(),
+            qty: qty,
+            price: price,
+            total: total,
+            metode: method
+        };
+        transactions.unshift(newTrans); // tambah di awal agar terbaru di atas
+        persistTransactions();
+        renderAll();
+        return true;
+    }
+
+    // Menghapus satu transaksi berdasarkan id
+    function deleteTransaction(id) {
+        transactions = transactions.filter(t => t.id != id);
+        persistTransactions();
+        renderAll();
+    }
+
+    // Reset semua data
+    function resetAllData() {
+        if(confirm("⚠️ Hapus SEMUA transaksi? Data tidak dapat dipulihkan.")) {
+            transactions = [];
+            persistTransactions();
+            renderAll();
+        }
+    }
+
+    // Hitung ringkasan
+    function computeSummary() {
+        let total = 0, cashTotal = 0, qrisTotal = 0;
+        for(let t of transactions) {
+            total += t.total;
+            if(t.metode === "Cash") cashTotal += t.total;
+            else if(t.metode === "QRIS") qrisTotal += t.total;
+        }
+        return { total, cashTotal, qrisTotal, count: transactions.length };
+    }
+
+    // Render tabel transaksi + summary
+    function renderAll() {
+        // ringkasan
+        const summary = computeSummary();
+        totalPenerimaanEl.innerText = formatRupiah(summary.total);
+        jmlTransaksiEl.innerText = summary.count;
+        totalCashEl.innerText = formatRupiah(summary.cashTotal);
+        totalQrisEl.innerText = formatRupiah(summary.qrisTotal);
+        
+        // render tabel
+        if(transactions.length === 0) {
+            transaksiBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">✨ Belum ada transaksi. Silakan catat penjualan baru ✨</td></tr>`;
+            return;
+        }
+        
+        let html = '';
+        for(let t of transactions) {
+            const metodeClass = t.metode === 'Cash' ? 'badge-cash' : 'badge-qris';
+            html += `
+                <tr>
+                    <td style="white-space: nowrap;">${t.waktu}</td>
+                    <td>${escapeHtml(t.item)}</td>
+                    <td>${t.qty}</td>
+                    <td>${formatRupiah(t.total)}</td>
+                    <td><span class="badge ${metodeClass}">${t.metode}</span></td>
+                    <td><button class="hapus-transaksi" data-id="${t.id}" title="Hapus transaksi">🗑️</button></td>
+                </tr>
+            `;
+        }
+        transaksiBody.innerHTML = html;
+        
+        // attach event listener ke tombol hapus masing-masing
+        document.querySelectorAll('.hapus-transaksi').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseFloat(btn.getAttribute('data-id'));
+                deleteTransaction(id);
+            });
+        });
+    }
+    
+    // sederhana untuk menghindari XSS
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if(m === '&') return '&amp;';
+            if(m === '<') return '&lt;';
+            if(m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Event handler simpan
+    function onSave() {
+        const item = itemNameInput.value;
+        const qty = parseInt(qtyInput.value);
+        const price = parseInt(priceInput.value);
+        const method = paymentMethodSelect.value;
+        const success = addTransaction(item, qty, price, method);
+        if(success) {
+            // reset kolom form (opsional: item name tidak direset agar bisa cepat input lagi)
+            itemNameInput.value = '';
+            qtyInput.value = '1';
+            priceInput.value = '15000';
+            updatePreviewTotal();
+            itemNameInput.focus();
+        }
+    }
+
+    // Event listener perubahan preview
+    qtyInput.addEventListener('input', updatePreviewTotal);
+    priceInput.addEventListener('input', updatePreviewTotal);
+    saveBtn.addEventListener('click', onSave);
+    resetAllBtn.addEventListener('click', resetAllData);
+    
+    // tombol enter bisa langsung simpan
+    function handleEnter(e) {
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            onSave();
+        }
+    }
+    itemNameInput.addEventListener('keypress', handleEnter);
+    qtyInput.addEventListener('keypress', handleEnter);
+    priceInput.addEventListener('keypress', handleEnter);
+    
+    // inisialisasi awal
+    loadTransactions();
+    updatePreviewTotal();
+</script>
+</body>
+</html>
