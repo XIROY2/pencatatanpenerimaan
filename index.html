@@ -17,13 +17,11 @@
             padding: 24px 20px;
         }
 
-        /* Container utama */
         .app-container {
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* Header hijau putih */
         .header {
             background: white;
             border-radius: 32px;
@@ -60,7 +58,6 @@
             flex-wrap: wrap;
         }
 
-        /* Kartu ringkasan */
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -98,13 +95,6 @@
             word-break: break-word;
         }
 
-        .card-value small {
-            font-size: 0.9rem;
-            font-weight: normal;
-            color: #5d6b3f;
-        }
-
-        /* Dua kolom: form + tabel */
         .two-columns {
             display: flex;
             flex-wrap: wrap;
@@ -165,14 +155,235 @@
             box-shadow: 0 0 0 3px rgba(46,125,50,0.2);
         }
 
+        /* ===== MENU PICKER ===== */
+        .menu-mode-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 50px;
+            border: 2px solid #c8e6c9;
+            background: #f9fff7;
+            color: #2e7d32;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: auto;
+            margin: 0;
+        }
+
+        .toggle-btn.active {
+            background: #2e7d32;
+            color: white;
+            border-color: #2e7d32;
+        }
+
+        .toggle-btn:hover:not(.active) {
+            background: #e8f5e9;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Panel mode pilih menu */
+        #panelPilihMenu { display: block; }
+        #panelManual { display: none; }
+
+        /* Kategori tab */
+        .kategori-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .tab-btn {
+            padding: 6px 14px;
+            border-radius: 50px;
+            border: 1.5px solid #c8e6c9;
+            background: #f1f8e9;
+            color: #2e7d32;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: auto;
+            margin: 0;
+        }
+
+        .tab-btn.active {
+            background: #2e7d32;
+            color: white;
+            border-color: #2e7d32;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: #dcedc8;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Grid menu item */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 4px;
+            margin-bottom: 14px;
+        }
+
+        .menu-grid::-webkit-scrollbar { width: 5px; }
+        .menu-grid::-webkit-scrollbar-track { background: #f1f8e9; border-radius: 10px; }
+        .menu-grid::-webkit-scrollbar-thumb { background: #81c784; border-radius: 10px; }
+
+        .menu-item-btn {
+            background: #f9fff7;
+            border: 1.5px solid #c8e6c9;
+            border-radius: 16px;
+            padding: 10px 10px 8px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+            width: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .menu-item-btn:hover {
+            background: #e8f5e9;
+            border-color: #4caf50;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(46,125,50,0.12);
+        }
+
+        .menu-item-btn.selected {
+            background: #2e7d32;
+            border-color: #1b5e20;
+            color: white;
+            transform: scale(0.97);
+        }
+
+        .menu-item-btn.selected .menu-item-price { color: #a5d6a7; }
+
+        .menu-item-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1b5e20;
+            line-height: 1.3;
+        }
+
+        .menu-item-btn.selected .menu-item-name { color: white; }
+
+        .menu-item-price {
+            font-size: 0.78rem;
+            color: #558b2f;
+            font-weight: 700;
+        }
+
+        /* Item terpilih chips */
+        .selected-items-area {
+            background: #f1f8e9;
+            border-radius: 20px;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            min-height: 46px;
+            border: 1.5px dashed #a5d6a7;
+        }
+
+        .selected-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #558b2f;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .chip {
+            background: white;
+            border: 1.5px solid #81c784;
+            border-radius: 50px;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            color: #2e7d32;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .chip-remove {
+            cursor: pointer;
+            color: #c62828;
+            font-weight: bold;
+            font-size: 0.9rem;
+            line-height: 1;
+            background: none;
+            border: none;
+            padding: 0;
+            width: auto;
+            margin: 0;
+        }
+
+        .chip-qty-ctrl {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .chip-qty-btn {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #c8e6c9;
+            border: none;
+            color: #2e7d32;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        .chip-qty-btn:hover { background: #2e7d32; color: white; transform: none; box-shadow: none; }
+
+        .chip-qty-num {
+            font-weight: 700;
+            min-width: 16px;
+            text-align: center;
+            color: #1b5e20;
+        }
+
+        .empty-selection {
+            font-size: 0.8rem;
+            color: #81c784;
+            font-style: italic;
+        }
+
+        /* ===== FORM MANUAL (sama seperti sebelumnya) ===== */
         .price-row {
             display: flex;
             gap: 12px;
             align-items: center;
         }
-        .price-row .form-group {
-            flex: 1;
-        }
+        .price-row .form-group { flex: 1; }
 
         .total-bayar {
             background: #e8f5e9;
@@ -182,7 +393,7 @@
             display: flex;
             justify-content: space-between;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #1b5e20;
         }
 
@@ -277,6 +488,7 @@
         @media (max-width: 780px) {
             body { padding: 16px; }
             .card-value { font-size: 1.5rem; }
+            .menu-grid { grid-template-columns: 1fr; }
         }
 
         .alur-info {
@@ -288,6 +500,26 @@
             font-size: 0.8rem;
             color: #2d572c;
         }
+
+        .payment-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .payment-row .form-group { flex: 1; margin: 0; }
+
+        .clear-selected-btn {
+            background: none;
+            border: none;
+            color: #ef9a9a;
+            font-size: 0.75rem;
+            cursor: pointer;
+            width: auto;
+            margin: 0;
+            padding: 0;
+            font-weight: 600;
+        }
+        .clear-selected-btn:hover { color: #c62828; background: none; transform: none; box-shadow: none; }
     </style>
 </head>
 <body>
@@ -304,60 +536,118 @@
     </div>
 
     <!-- RINGKASAN -->
-    <div class="summary-grid" id="summaryArea">
+    <div class="summary-grid">
         <div class="card"><div class="card-title">💰 TOTAL PENERIMAAN</div><div class="card-value" id="totalPenerimaan">Rp0</div></div>
         <div class="card"><div class="card-title">🧾 JUMLAH TRANSAKSI</div><div class="card-value" id="jmlTransaksi">0</div></div>
         <div class="card"><div class="card-title">💵 CASH</div><div class="card-value" id="totalCash">Rp0</div></div>
         <div class="card"><div class="card-title">📱 QRIS</div><div class="card-value" id="totalQris">Rp0</div></div>
     </div>
 
-    <!-- DUA KOLOM UTAMA -->
+    <!-- DUA KOLOM -->
     <div class="two-columns">
-        <!-- FORM TRANSAKSI -->
+        <!-- FORM -->
         <div class="form-section">
             <h2>📝 Catat Transaksi Baru</h2>
-            <div class="form-group">
-                <label>🍽 Nama Menu / Item</label>
-                <input type="text" id="itemName" placeholder="Contoh: Nasi Goreng, Mie Ayam, Es Teh" autocomplete="off">
+
+            <!-- Toggle mode -->
+            <div class="menu-mode-toggle">
+                <button class="toggle-btn active" id="btnModePilih" onclick="switchMode('pilih')">🍽 Pilih Menu</button>
+                <button class="toggle-btn" id="btnModeManual" onclick="switchMode('manual')">✏️ Input Manual</button>
             </div>
-            <div class="price-row">
+
+            <!-- ===== PANEL PILIH MENU ===== -->
+            <div id="panelPilihMenu">
+                <!-- Tab kategori -->
+                <div class="kategori-tabs">
+                    <button class="tab-btn active" onclick="switchTab(this, 'makanan')">🍛 Makanan</button>
+                    <button class="tab-btn" onclick="switchTab(this, 'lauk')">🥗 Lauk & Sampingan</button>
+                    <button class="tab-btn" onclick="switchTab(this, 'minuman')">🥤 Minuman</button>
+                </div>
+
+                <!-- Grid menu -->
+                <div class="menu-grid" id="menuGrid"></div>
+
+                <!-- Item yang sudah dipilih (chips) -->
+                <div class="selected-items-area">
+                    <div class="selected-label">
+                        <span>🛒 Pesanan dipilih:</span>
+                        <button class="clear-selected-btn" onclick="clearAllSelected()">Hapus semua ×</button>
+                    </div>
+                    <div class="chips-container" id="chipsContainer">
+                        <span class="empty-selection">Belum ada menu dipilih...</span>
+                    </div>
+                </div>
+
+                <!-- Total & Pembayaran -->
+                <div class="total-bayar">
+                    <span>💰 Total :</span>
+                    <span id="previewTotalPilih">Rp0</span>
+                </div>
+
                 <div class="form-group">
-                    <label>📦 Jumlah</label>
-                    <input type="number" id="qty" value="1" min="1">
+                    <label>💳 Metode Pembayaran</label>
+                    <select id="paymentMethodPilih">
+                        <option value="Cash">💵 Cash (Tunai)</option>
+                        <option value="QRIS">📱 QRIS</option>
+                    </select>
+                </div>
+
+                <button id="savePilihBtn">💾 Simpan Transaksi</button>
+            </div>
+
+            <!-- ===== PANEL INPUT MANUAL ===== -->
+            <div id="panelManual">
+                <div class="form-group">
+                    <label>🍽 Nama Menu / Item</label>
+                    <input type="text" id="itemName" placeholder="Contoh: Nasi Goreng, Mie Ayam, Es Teh" autocomplete="off">
+                </div>
+                <div class="price-row">
+                    <div class="form-group">
+                        <label>📦 Jumlah</label>
+                        <input type="number" id="qty" value="1" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label>💲 Harga Satuan (Rp)</label>
+                        <input type="number" id="price" value="15000" min="0" step="500">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label>💲 Harga Satuan (Rp)</label>
-                    <input type="number" id="price" value="15000" min="0" step="500">
+                    <label>💳 Metode Pembayaran</label>
+                    <select id="paymentMethod">
+                        <option value="Cash">💵 Cash (Tunai)</option>
+                        <option value="QRIS">📱 QRIS</option>
+                    </select>
                 </div>
+                <div class="total-bayar">
+                    <span>💰 Total :</span>
+                    <span id="previewTotal">Rp0</span>
+                </div>
+                <button id="saveTransactionBtn">💾 Simpan Transaksi</button>
             </div>
-            <div class="form-group">
-                <label>💳 Metode Pembayaran</label>
-                <select id="paymentMethod">
-                    <option value="Cash">💵 Cash (Tunai)</option>
-                    <option value="QRIS">📱 QRIS</option>
-                </select>
-            </div>
-            <div class="total-bayar">
-                <span>💰 Total yang harus dibayar :</span>
-                <span id="previewTotal">Rp0</span>
-            </div>
-            <button id="saveTransactionBtn">💾 Simpan Transaksi</button>
+
             <button id="resetAllBtn" class="btn-reset">🗑️ Hapus Semua Data</button>
-            
+
             <div class="alur-info">
                 🔄 <strong>Alur Siklus Sistem</strong><br>
-                1. Pelanggan pesan → 2. Kasir masukkan item, jumlah & harga → 3. Sistem hitung total otomatis (minimalisir error)<br>
-                4. Pilih metode bayar (Cash/QRIS) → 5. Simpan transaksi → 6. Data tersimpan & perbarui ringkasan penerimaan.
+                1. Pelanggan pesan → 2. Kasir pilih menu atau input manual → 3. Sistem hitung total otomatis<br>
+                4. Pilih metode bayar (Cash/QRIS) → 5. Simpan transaksi → 6. Data tersimpan & ringkasan diperbarui.
             </div>
         </div>
 
-        <!-- DAFTAR TRANSAKSI -->
+        <!-- RIWAYAT TRANSAKSI -->
         <div class="history-section">
             <h2>📋 Riwayat Transaksi Hari Ini</h2>
             <div style="overflow-x: auto;">
                 <table class="transaksi-table" id="transaksiTable">
                     <thead>
-                        <tr><th>Waktu</th><th>Item</th><th>Jml</th><th>Total</th><th>Metode</th><th style="width: 40px;"></th></tr>
+                        <tr>
+                            <th>Waktu</th>
+                            <th>Item</th>
+                            <th>Jml</th>
+                            <th>Total</th>
+                            <th>Metode</th>
+                            <th style="width: 40px;"></th>
+                        </tr>
                     </thead>
                     <tbody id="transaksiBody">
                         <tr><td colspan="6" style="text-align:center;">Belum ada transaksi</td></tr>
@@ -369,212 +659,356 @@
             </div>
         </div>
     </div>
+
     <div class="footer-note">
         ⚡ Sistem Informasi Akuntansi - Siklus Penerimaan | Kelompok 1 | Warung Pica Bibir | 2026
     </div>
 </div>
 
 <script>
-    // ======================== KONFIGURASI AWAL ========================
-    let transactions = [];   // array of objects
+// ======================== DATA MENU ========================
+const MENU_DATA = {
+    makanan: [
+        { nama: "Nasi Campur + Es Teh (S)", harga: 15000 },
+        { nama: "Nasi Campur + Es Teh (L)", harga: 18000 },
+        { nama: "Ayam Geprek + Es Teh", harga: 18000 },
+        { nama: "Ayam Lalapan + Es Teh", harga: 23000 },
+        { nama: "Midal / Tinutuan", harga: 10000 },
+        { nama: "Milu Siram / Binte Biluhuta", harga: 10000 },
+        { nama: "Mie Cakalang", harga: 10000 },
+        { nama: "Nasi Ayam Krispi + Es Teh", harga: 18000 },
+        { nama: "Paket Tahu Tore", harga: 5000 },
+    ],
+    lauk: [
+        { nama: "Goroho Stik/Slice/Teto", harga: 10000 },
+        { nama: "Tahu Isi / Bakwan (3 Bh)", harga: 5000 },
+        { nama: "Perkedel Nike/Kentang/Ikan (3 Bh)", harga: 5000 },
+        { nama: "Tahu Goreng/Rebus (1 Bh)", harga: 1000 },
+    ],
+    minuman: [
+        { nama: "Es Teh", harga: 4000 },
+        { nama: "Nutrisari", harga: 5000 },
+        { nama: "Aneka Kopi", harga: 4000 },
+        { nama: "Air Mineral", harga: 4000 },
+        { nama: "Teh Hangat Manis/Tawar", harga: 4000 },
+        { nama: "Es Batu", harga: 0 },
+    ]
+};
 
-    // Key local storage
-    const STORAGE_KEY = "PicaBibir_Transaksi";
+// ======================== STATE ========================
+let transactions = [];
+let selectedItems = {}; // { "nama menu": { nama, harga, qty } }
+let currentTab = 'makanan';
+let currentMode = 'pilih';
 
-    // DOM elements
-    const totalPenerimaanEl = document.getElementById('totalPenerimaan');
-    const jmlTransaksiEl = document.getElementById('jmlTransaksi');
-    const totalCashEl = document.getElementById('totalCash');
-    const totalQrisEl = document.getElementById('totalQris');
-    const transaksiBody = document.getElementById('transaksiBody');
-    const itemNameInput = document.getElementById('itemName');
-    const qtyInput = document.getElementById('qty');
-    const priceInput = document.getElementById('price');
-    const paymentMethodSelect = document.getElementById('paymentMethod');
-    const previewTotalSpan = document.getElementById('previewTotal');
-    const saveBtn = document.getElementById('saveTransactionBtn');
-    const resetAllBtn = document.getElementById('resetAllBtn');
+const STORAGE_KEY = "PicaBibir_Transaksi";
 
-    // Helper: format Rupiah
-    function formatRupiah(angka) {
-        return 'Rp' + new Intl.NumberFormat('id-ID').format(angka);
+// ======================== HELPERS ========================
+function formatRupiah(angka) {
+    if (angka === 0) return 'Gratis';
+    return 'Rp' + new Intl.NumberFormat('id-ID').format(angka);
+}
+
+function formatRupiahFull(angka) {
+    return 'Rp' + new Intl.NumberFormat('id-ID').format(angka);
+}
+
+function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+        if(m === '&') return '&amp;';
+        if(m === '<') return '&lt;';
+        if(m === '>') return '&gt;';
+        return m;
+    });
+}
+
+// ======================== MODE SWITCH ========================
+function switchMode(mode) {
+    currentMode = mode;
+    const btnPilih = document.getElementById('btnModePilih');
+    const btnManual = document.getElementById('btnModeManual');
+    const panelPilih = document.getElementById('panelPilihMenu');
+    const panelManual = document.getElementById('panelManual');
+
+    if (mode === 'pilih') {
+        btnPilih.classList.add('active');
+        btnManual.classList.remove('active');
+        panelPilih.style.display = 'block';
+        panelManual.style.display = 'none';
+    } else {
+        btnManual.classList.add('active');
+        btnPilih.classList.remove('active');
+        panelManual.style.display = 'block';
+        panelPilih.style.display = 'none';
+        updatePreviewTotal();
+    }
+}
+
+// ======================== TAB KATEGORI ========================
+function switchTab(el, tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    currentTab = tab;
+    renderMenuGrid();
+}
+
+// ======================== RENDER MENU GRID ========================
+function renderMenuGrid() {
+    const grid = document.getElementById('menuGrid');
+    const items = MENU_DATA[currentTab] || [];
+    grid.innerHTML = '';
+
+    items.forEach(item => {
+        const key = item.nama;
+        const isSelected = !!selectedItems[key];
+        const btn = document.createElement('button');
+        btn.className = 'menu-item-btn' + (isSelected ? ' selected' : '');
+        btn.innerHTML = `
+            <span class="menu-item-name">${escapeHtml(item.nama)}</span>
+            <span class="menu-item-price">${formatRupiah(item.harga)}</span>
+        `;
+        btn.onclick = () => toggleMenuItem(item);
+        grid.appendChild(btn);
+    });
+}
+
+// ======================== TOGGLE ITEM ========================
+function toggleMenuItem(item) {
+    const key = item.nama;
+    if (selectedItems[key]) {
+        delete selectedItems[key];
+    } else {
+        selectedItems[key] = { nama: item.nama, harga: item.harga, qty: 1 };
+    }
+    renderMenuGrid();
+    renderChips();
+    updateTotalPilih();
+}
+
+function changeQty(key, delta) {
+    if (!selectedItems[key]) return;
+    selectedItems[key].qty += delta;
+    if (selectedItems[key].qty <= 0) {
+        delete selectedItems[key];
+        renderMenuGrid();
+    }
+    renderChips();
+    updateTotalPilih();
+}
+
+function clearAllSelected() {
+    selectedItems = {};
+    renderMenuGrid();
+    renderChips();
+    updateTotalPilih();
+}
+
+// ======================== RENDER CHIPS ========================
+function renderChips() {
+    const container = document.getElementById('chipsContainer');
+    const keys = Object.keys(selectedItems);
+
+    if (keys.length === 0) {
+        container.innerHTML = '<span class="empty-selection">Belum ada menu dipilih...</span>';
+        return;
     }
 
-    // Preview total saat jumlah atau harga berubah
-    function updatePreviewTotal() {
-        let qty = parseInt(qtyInput.value) || 0;
-        let price = parseInt(priceInput.value) || 0;
-        let total = qty * price;
-        previewTotalSpan.innerText = formatRupiah(total);
-        return total;
+    container.innerHTML = '';
+    keys.forEach(key => {
+        const item = selectedItems[key];
+        const chip = document.createElement('div');
+        chip.className = 'chip';
+        chip.innerHTML = `
+            <span>${escapeHtml(item.nama)} ${item.harga === 0 ? '(Gratis)' : ''}</span>
+            <div class="chip-qty-ctrl">
+                <button class="chip-qty-btn" onclick="changeQty('${CSS.escape(key)}', -1)">−</button>
+                <span class="chip-qty-num">${item.qty}</span>
+                <button class="chip-qty-btn" onclick="changeQty('${CSS.escape(key)}', 1)">+</button>
+            </div>
+            <button class="chip-remove" onclick="removeChip('${CSS.escape(key)}')">×</button>
+        `;
+        container.appendChild(chip);
+    });
+}
+
+function removeChip(key) {
+    // Unescape key (handle CSS.escape)
+    const actualKey = Object.keys(selectedItems).find(k => CSS.escape(k) === key) || key;
+    delete selectedItems[actualKey];
+    renderMenuGrid();
+    renderChips();
+    updateTotalPilih();
+}
+
+// ======================== TOTAL (MODE PILIH) ========================
+function updateTotalPilih() {
+    let total = 0;
+    Object.values(selectedItems).forEach(item => {
+        total += item.harga * item.qty;
+    });
+    document.getElementById('previewTotalPilih').innerText = formatRupiahFull(total);
+}
+
+// ======================== SIMPAN (MODE PILIH) ========================
+document.getElementById('savePilihBtn').addEventListener('click', function () {
+    const keys = Object.keys(selectedItems);
+    if (keys.length === 0) {
+        alert("Pilih setidaknya satu menu terlebih dahulu!");
+        return;
     }
 
-    // Load data dari localStorage
-    function loadTransactions() {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if(stored) {
-            try {
-                transactions = JSON.parse(stored);
-                // validasi: pastikan setiap objek punya properti yang benar
-                if(!Array.isArray(transactions)) transactions = [];
-            } catch(e) { transactions = []; }
-        } else {
-            // data contoh untuk demo (sebagai gambaran)
-            transactions = [];
-            // optional: tambah contoh 2 transaksi agar tidak kosong ?
-            // Untuk kebersihan, biarkan kosong.
-        }
-        renderAll();
-    }
+    const method = document.getElementById('paymentMethodPilih').value;
+    const now = new Date();
+    const waktuStr = `${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
 
-    // Simpan ke localStorage
-    function persistTransactions() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
-    }
-
-    // Menambah transaksi baru
-    function addTransaction(item, qty, price, method) {
-        if(!item.trim()) {
-            alert("Nama menu / item tidak boleh kosong!");
-            return false;
-        }
-        if(qty <= 0 || price <= 0) {
-            alert("Jumlah dan harga harus lebih dari 0");
-            return false;
-        }
-        const total = qty * price;
-        const now = new Date();
-        const waktuStr = `${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
-        
-        const newTrans = {
+    // Simpan setiap item sebagai transaksi individual
+    keys.forEach(key => {
+        const item = selectedItems[key];
+        const total = item.harga * item.qty;
+        transactions.unshift({
             id: Date.now() + Math.random(),
             waktu: waktuStr,
-            item: item.trim(),
-            qty: qty,
-            price: price,
+            item: item.nama,
+            qty: item.qty,
+            price: item.harga,
             total: total,
             metode: method
-        };
-        transactions.unshift(newTrans); // tambah di awal agar terbaru di atas
+        });
+    });
+
+    persistTransactions();
+    renderAll();
+
+    // Reset pilihan
+    selectedItems = {};
+    renderMenuGrid();
+    renderChips();
+    updateTotalPilih();
+});
+
+// ======================== MANUAL INPUT ========================
+function updatePreviewTotal() {
+    let qty = parseInt(document.getElementById('qty').value) || 0;
+    let price = parseInt(document.getElementById('price').value) || 0;
+    document.getElementById('previewTotal').innerText = formatRupiahFull(qty * price);
+}
+
+function addTransaction(item, qty, price, method) {
+    if (!item.trim()) { alert("Nama menu / item tidak boleh kosong!"); return false; }
+    if (qty <= 0 || price < 0) { alert("Jumlah dan harga tidak valid!"); return false; }
+    const total = qty * price;
+    const now = new Date();
+    const waktuStr = `${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+    transactions.unshift({ id: Date.now() + Math.random(), waktu: waktuStr, item: item.trim(), qty, price, total, metode: method });
+    persistTransactions();
+    renderAll();
+    return true;
+}
+
+function onSave() {
+    const item = document.getElementById('itemName').value;
+    const qty = parseInt(document.getElementById('qty').value);
+    const price = parseInt(document.getElementById('price').value);
+    const method = document.getElementById('paymentMethod').value;
+    const success = addTransaction(item, qty, price, method);
+    if (success) {
+        document.getElementById('itemName').value = '';
+        document.getElementById('qty').value = '1';
+        document.getElementById('price').value = '15000';
+        updatePreviewTotal();
+        document.getElementById('itemName').focus();
+    }
+}
+
+document.getElementById('qty').addEventListener('input', updatePreviewTotal);
+document.getElementById('price').addEventListener('input', updatePreviewTotal);
+document.getElementById('saveTransactionBtn').addEventListener('click', onSave);
+
+['itemName','qty','price'].forEach(id => {
+    document.getElementById(id).addEventListener('keypress', e => {
+        if (e.key === 'Enter') { e.preventDefault(); onSave(); }
+    });
+});
+
+// ======================== HAPUS & RESET ========================
+function deleteTransaction(id) {
+    transactions = transactions.filter(t => t.id != id);
+    persistTransactions();
+    renderAll();
+}
+
+document.getElementById('resetAllBtn').addEventListener('click', function () {
+    if (confirm("⚠️ Hapus SEMUA transaksi? Data tidak dapat dipulihkan.")) {
+        transactions = [];
         persistTransactions();
         renderAll();
-        return true;
     }
+});
 
-    // Menghapus satu transaksi berdasarkan id
-    function deleteTransaction(id) {
-        transactions = transactions.filter(t => t.id != id);
-        persistTransactions();
-        renderAll();
-    }
+// ======================== PERSIST ========================
+function persistTransactions() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
+}
 
-    // Reset semua data
-    function resetAllData() {
-        if(confirm("⚠️ Hapus SEMUA transaksi? Data tidak dapat dipulihkan.")) {
-            transactions = [];
-            persistTransactions();
-            renderAll();
-        }
+function loadTransactions() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+        try {
+            transactions = JSON.parse(stored);
+            if (!Array.isArray(transactions)) transactions = [];
+        } catch(e) { transactions = []; }
     }
+    renderAll();
+}
 
-    // Hitung ringkasan
-    function computeSummary() {
-        let total = 0, cashTotal = 0, qrisTotal = 0;
-        for(let t of transactions) {
-            total += t.total;
-            if(t.metode === "Cash") cashTotal += t.total;
-            else if(t.metode === "QRIS") qrisTotal += t.total;
-        }
-        return { total, cashTotal, qrisTotal, count: transactions.length };
-    }
+// ======================== RENDER SEMUA ========================
+function computeSummary() {
+    let total = 0, cashTotal = 0, qrisTotal = 0;
+    transactions.forEach(t => {
+        total += t.total;
+        if (t.metode === "Cash") cashTotal += t.total;
+        else if (t.metode === "QRIS") qrisTotal += t.total;
+    });
+    return { total, cashTotal, qrisTotal, count: transactions.length };
+}
 
-    // Render tabel transaksi + summary
-    function renderAll() {
-        // ringkasan
-        const summary = computeSummary();
-        totalPenerimaanEl.innerText = formatRupiah(summary.total);
-        jmlTransaksiEl.innerText = summary.count;
-        totalCashEl.innerText = formatRupiah(summary.cashTotal);
-        totalQrisEl.innerText = formatRupiah(summary.qrisTotal);
-        
-        // render tabel
-        if(transactions.length === 0) {
-            transaksiBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">✨ Belum ada transaksi. Silakan catat penjualan baru ✨</td></tr>`;
-            return;
-        }
-        
-        let html = '';
-        for(let t of transactions) {
-            const metodeClass = t.metode === 'Cash' ? 'badge-cash' : 'badge-qris';
-            html += `
-                <tr>
-                    <td style="white-space: nowrap;">${t.waktu}</td>
-                    <td>${escapeHtml(t.item)}</td>
-                    <td>${t.qty}</td>
-                    <td>${formatRupiah(t.total)}</td>
-                    <td><span class="badge ${metodeClass}">${t.metode}</span></td>
-                    <td><button class="hapus-transaksi" data-id="${t.id}" title="Hapus transaksi">🗑️</button></td>
-                </tr>
-            `;
-        }
-        transaksiBody.innerHTML = html;
-        
-        // attach event listener ke tombol hapus masing-masing
-        document.querySelectorAll('.hapus-transaksi').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const id = parseFloat(btn.getAttribute('data-id'));
-                deleteTransaction(id);
-            });
-        });
-    }
-    
-    // sederhana untuk menghindari XSS
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if(m === '&') return '&amp;';
-            if(m === '<') return '&lt;';
-            if(m === '>') return '&gt;';
-            return m;
-        });
-    }
+function renderAll() {
+    const s = computeSummary();
+    document.getElementById('totalPenerimaan').innerText = formatRupiahFull(s.total);
+    document.getElementById('jmlTransaksi').innerText = s.count;
+    document.getElementById('totalCash').innerText = formatRupiahFull(s.cashTotal);
+    document.getElementById('totalQris').innerText = formatRupiahFull(s.qrisTotal);
 
-    // Event handler simpan
-    function onSave() {
-        const item = itemNameInput.value;
-        const qty = parseInt(qtyInput.value);
-        const price = parseInt(priceInput.value);
-        const method = paymentMethodSelect.value;
-        const success = addTransaction(item, qty, price, method);
-        if(success) {
-            // reset kolom form (opsional: item name tidak direset agar bisa cepat input lagi)
-            itemNameInput.value = '';
-            qtyInput.value = '1';
-            priceInput.value = '15000';
-            updatePreviewTotal();
-            itemNameInput.focus();
-        }
+    const tbody = document.getElementById('transaksiBody');
+    if (transactions.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">✨ Belum ada transaksi. Silakan catat penjualan baru ✨</td></tr>`;
+        return;
     }
+    let html = '';
+    transactions.forEach(t => {
+        const metodeClass = t.metode === 'Cash' ? 'badge-cash' : 'badge-qris';
+        const displayTotal = t.total === 0 ? '<em>Gratis</em>' : formatRupiahFull(t.total);
+        html += `<tr>
+            <td style="white-space:nowrap;">${t.waktu}</td>
+            <td>${escapeHtml(t.item)}</td>
+            <td>${t.qty}</td>
+            <td>${displayTotal}</td>
+            <td><span class="badge ${metodeClass}">${t.metode}</span></td>
+            <td><button class="hapus-transaksi" data-id="${t.id}" title="Hapus">🗑️</button></td>
+        </tr>`;
+    });
+    tbody.innerHTML = html;
 
-    // Event listener perubahan preview
-    qtyInput.addEventListener('input', updatePreviewTotal);
-    priceInput.addEventListener('input', updatePreviewTotal);
-    saveBtn.addEventListener('click', onSave);
-    resetAllBtn.addEventListener('click', resetAllData);
-    
-    // tombol enter bisa langsung simpan
-    function handleEnter(e) {
-        if(e.key === 'Enter') {
-            e.preventDefault();
-            onSave();
-        }
-    }
-    itemNameInput.addEventListener('keypress', handleEnter);
-    qtyInput.addEventListener('keypress', handleEnter);
-    priceInput.addEventListener('keypress', handleEnter);
-    
-    // inisialisasi awal
-    loadTransactions();
-    updatePreviewTotal();
+    document.querySelectorAll('.hapus-transaksi').forEach(btn => {
+        btn.addEventListener('click', () => deleteTransaction(parseFloat(btn.getAttribute('data-id'))));
+    });
+}
+
+// ======================== INISIALISASI ========================
+loadTransactions();
+renderMenuGrid();
+updatePreviewTotal();
+updateTotalPilih();
 </script>
 </body>
 </html>
