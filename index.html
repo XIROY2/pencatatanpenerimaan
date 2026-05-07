@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Sistem Penerimaan Kas - Warung Pica Bibir</title>
+    <title>Sistem Penerimaan Kas - Warung Pica Bibir (Cetak Struk)</title>
     <style>
         * {
             margin: 0;
@@ -155,7 +155,6 @@
             box-shadow: 0 0 0 3px rgba(46,125,50,0.2);
         }
 
-        /* ===== MENU PICKER ===== */
         .menu-mode-toggle {
             display: flex;
             gap: 10px;
@@ -185,15 +184,11 @@
 
         .toggle-btn:hover:not(.active) {
             background: #e8f5e9;
-            transform: none;
-            box-shadow: none;
         }
 
-        /* Panel mode pilih menu */
         #panelPilihMenu { display: block; }
         #panelManual { display: none; }
 
-        /* Kategori tab */
         .kategori-tabs {
             display: flex;
             gap: 6px;
@@ -221,13 +216,6 @@
             border-color: #2e7d32;
         }
 
-        .tab-btn:hover:not(.active) {
-            background: #dcedc8;
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* Grid menu item */
         .menu-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -260,27 +248,22 @@
         .menu-item-btn:hover {
             background: #e8f5e9;
             border-color: #4caf50;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 10px rgba(46,125,50,0.12);
         }
 
         .menu-item-btn.selected {
             background: #2e7d32;
             border-color: #1b5e20;
             color: white;
-            transform: scale(0.97);
         }
-
-        .menu-item-btn.selected .menu-item-price { color: #a5d6a7; }
 
         .menu-item-name {
             font-size: 0.8rem;
             font-weight: 600;
             color: #1b5e20;
-            line-height: 1.3;
         }
 
         .menu-item-btn.selected .menu-item-name { color: white; }
+        .menu-item-btn.selected .menu-item-price { color: #a5d6a7; }
 
         .menu-item-price {
             font-size: 0.78rem;
@@ -288,7 +271,6 @@
             font-weight: 700;
         }
 
-        /* Item terpilih chips */
         .selected-items-area {
             background: #f1f8e9;
             border-radius: 20px;
@@ -332,12 +314,10 @@
             color: #c62828;
             font-weight: bold;
             font-size: 0.9rem;
-            line-height: 1;
             background: none;
             border: none;
             padding: 0;
             width: auto;
-            margin: 0;
         }
 
         .chip-qty-ctrl {
@@ -358,32 +338,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0;
+        }
+
+        .clear-selected-btn {
+            background: none;
+            border: none;
+            color: #ef9a9a;
+            font-size: 0.75rem;
+            cursor: pointer;
+            width: auto;
             margin: 0;
+            padding: 0;
+            font-weight: 600;
         }
-
-        .chip-qty-btn:hover { background: #2e7d32; color: white; transform: none; box-shadow: none; }
-
-        .chip-qty-num {
-            font-weight: 700;
-            min-width: 16px;
-            text-align: center;
-            color: #1b5e20;
-        }
-
-        .empty-selection {
-            font-size: 0.8rem;
-            color: #81c784;
-            font-style: italic;
-        }
-
-        /* ===== FORM MANUAL (sama seperti sebelumnya) ===== */
-        .price-row {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        .price-row .form-group { flex: 1; }
 
         .total-bayar {
             background: #e8f5e9;
@@ -414,7 +381,6 @@
         button:hover {
             background: #1b5e20;
             transform: scale(0.98);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .btn-reset {
@@ -423,13 +389,19 @@
             border: 1px solid #c8e6c9;
             margin-top: 12px;
         }
-        .btn-reset:hover {
-            background: #ffebee;
-            color: #c62828;
-            border-color: #ef9a9a;
-        }
 
-        /* Tabel transaksi */
+        .btn-cetak {
+            background: #ff9800;
+            margin-top: 8px;
+        }
+        .btn-cetak:hover { background: #f57c00; }
+
+        .btn-konfirmasi {
+            background: #00bcd4;
+            margin-top: 8px;
+        }
+        .btn-konfirmasi:hover { background: #0097a7; }
+
         .transaksi-table {
             width: 100%;
             border-collapse: collapse;
@@ -458,6 +430,8 @@
         }
         .badge-cash { background: #e8f5e9; color: #2e7d32; }
         .badge-qris { background: #e0f7fa; color: #00695c; }
+        .badge-pending { background: #fff3e0; color: #e65100; }
+        .badge-lunas { background: #e8f5e9; color: #2e7d32; }
 
         .hapus-transaksi {
             background: none;
@@ -469,199 +443,123 @@
             padding: 4px 8px;
             margin: 0;
         }
-        .hapus-transaksi:hover {
-            background: #ffebee;
-            transform: none;
-        }
 
-        .footer-note {
-            margin-top: 32px;
-            text-align: center;
-            color: #2e6b2f;
-            background: white;
-            border-radius: 28px;
-            padding: 16px;
-            font-size: 0.8rem;
-            border-top: 2px solid #dcfce7;
+        .kode-unik {
+            font-family: monospace;
+            font-size: 0.75rem;
+            font-weight: bold;
+            background: #f5f5f5;
+            padding: 4px 6px;
+            border-radius: 6px;
         }
 
         @media (max-width: 780px) {
             body { padding: 16px; }
-            .card-value { font-size: 1.5rem; }
             .menu-grid { grid-template-columns: 1fr; }
         }
 
-        .alur-info {
-            background: #f9fff7;
-            border-radius: 20px;
-            padding: 12px 18px;
-            margin-top: 20px;
-            border: 1px dashed #81c784;
-            font-size: 0.8rem;
-            color: #2d572c;
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-struk {
+                display: block !important;
+                padding: 20px;
+                font-size: 12px;
+            }
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
         }
 
-        .payment-row {
+        .price-row {
             display: flex;
-            align-items: center;
             gap: 12px;
         }
-        .payment-row .form-group { flex: 1; margin: 0; }
-
-        .clear-selected-btn {
-            background: none;
-            border: none;
-            color: #ef9a9a;
-            font-size: 0.75rem;
-            cursor: pointer;
-            width: auto;
-            margin: 0;
-            padding: 0;
-            font-weight: 600;
+        .price-row .form-group {
+            flex: 1;
         }
-        .clear-selected-btn:hover { color: #c62828; background: none; transform: none; box-shadow: none; }
     </style>
 </head>
 <body>
 <div class="app-container">
-    <!-- HEADER -->
-    <div class="header">
-        <h1>
-            🍛 Warung Makan Muslim Pica Bibir
-            <small>Pencatatan Keuangan</small>
-        </h1>
-        <div class="sub">
-            📍 Perum Unima blok B, Tondano &nbsp;|&nbsp; 💰 Cash & QRIS &nbsp;|&nbsp; 📅 Laporan realtime
-        </div>
+    <div class="header no-print">
+        <h1>🍛 Warung Makan Muslim Pica Bibir <small>Cetak Struk + Kode Unik</small></h1>
+        <div class="sub">📍 Perum Unima blok B, Tondano &nbsp;|&nbsp; 💰 Cash & QRIS &nbsp;|&nbsp; 🖨️ Cetak Struk → Input Kode → Lunas</div>
     </div>
 
-    <!-- RINGKASAN -->
-    <div class="summary-grid">
-        <div class="card"><div class="card-title">💰 TOTAL PENERIMAAN</div><div class="card-value" id="totalPenerimaan">Rp0</div></div>
-        <div class="card"><div class="card-title">🧾 JUMLAH TRANSAKSI</div><div class="card-value" id="jmlTransaksi">0</div></div>
-        <div class="card"><div class="card-title">💵 CASH</div><div class="card-value" id="totalCash">Rp0</div></div>
-        <div class="card"><div class="card-title">📱 QRIS</div><div class="card-value" id="totalQris">Rp0</div></div>
+    <div class="summary-grid no-print">
+        <div class="card"><div class="card-title">💰 TOTAL PENERIMAAN (LUNAS)</div><div class="card-value" id="totalPenerimaan">Rp0</div></div>
+        <div class="card"><div class="card-title">🧾 TRANSAKSI LUNAS</div><div class="card-value" id="jmlTransaksi">0</div></div>
+        <div class="card"><div class="card-title">⏳ MENUNGGU BAYAR</div><div class="card-value" id="totalPending">0</div></div>
+        <div class="card"><div class="card-title">📱 QRIS (LUNAS)</div><div class="card-value" id="totalQris">Rp0</div></div>
     </div>
 
-    <!-- DUA KOLOM -->
     <div class="two-columns">
-        <!-- FORM -->
-        <div class="form-section">
+        <div class="form-section no-print">
             <h2>📝 Catat Transaksi Baru</h2>
 
-            <!-- Toggle mode -->
             <div class="menu-mode-toggle">
-                <button class="toggle-btn active" id="btnModePilih" onclick="switchMode('pilih')">🍽 Pilih Menu</button>
-                <button class="toggle-btn" id="btnModeManual" onclick="switchMode('manual')">✏️ Input Manual</button>
+                <button class="toggle-btn active" id="btnModePilih">🍽 Pilih Menu</button>
+                <button class="toggle-btn" id="btnModeManual">✏️ Input Manual</button>
             </div>
 
-            <!-- ===== PANEL PILIH MENU ===== -->
             <div id="panelPilihMenu">
-                <!-- Tab kategori -->
-                <div class="kategori-tabs">
-                    <button class="tab-btn active" onclick="switchTab(this, 'makanan')">🍛 Makanan</button>
-                    <button class="tab-btn" onclick="switchTab(this, 'lauk')">🥗 Lauk & Sampingan</button>
-                    <button class="tab-btn" onclick="switchTab(this, 'minuman')">🥤 Minuman</button>
+                <div class="kategori-tabs" id="kategoriTabs">
+                    <button class="tab-btn active" data-tab="makanan">🍛 Makanan</button>
+                    <button class="tab-btn" data-tab="lauk">🥗 Lauk</button>
+                    <button class="tab-btn" data-tab="minuman">🥤 Minuman</button>
                 </div>
-
-                <!-- Grid menu -->
                 <div class="menu-grid" id="menuGrid"></div>
-
-                <!-- Item yang sudah dipilih (chips) -->
                 <div class="selected-items-area">
-                    <div class="selected-label">
-                        <span>🛒 Pesanan dipilih:</span>
-                        <button class="clear-selected-btn" onclick="clearAllSelected()">Hapus semua ×</button>
-                    </div>
-                    <div class="chips-container" id="chipsContainer">
-                        <span class="empty-selection">Belum ada menu dipilih...</span>
-                    </div>
+                    <div class="selected-label"><span>🛒 Pesanan:</span><button class="clear-selected-btn" id="clearSelectedBtn">Hapus semua</button></div>
+                    <div class="chips-container" id="chipsContainer"><span class="empty-selection">Belum ada menu...</span></div>
                 </div>
-
-                <!-- Total & Pembayaran -->
-                <div class="total-bayar">
-                    <span>💰 Total :</span>
-                    <span id="previewTotalPilih">Rp0</span>
-                </div>
-
-                <div class="form-group">
-                    <label>💳 Metode Pembayaran</label>
-                    <select id="paymentMethodPilih">
-                        <option value="Cash">💵 Cash (Tunai)</option>
-                        <option value="QRIS">📱 QRIS</option>
-                    </select>
-                </div>
-
-                <button id="savePilihBtn">💾 Simpan Transaksi</button>
+                <div class="total-bayar"><span>💰 Total :</span><span id="previewTotalPilih">Rp0</span></div>
+                <div class="form-group"><label>💳 Metode Pembayaran</label><select id="paymentMethodPilih"><option value="Cash">💵 Cash (Tunai)</option><option value="QRIS">📱 QRIS</option></select></div>
+                <button id="cetakStrukPilihBtn" class="btn-cetak">🖨️ Cetak Struk (Pending)</button>
             </div>
 
-            <!-- ===== PANEL INPUT MANUAL ===== -->
             <div id="panelManual">
-                <div class="form-group">
-                    <label>🍽 Nama Menu / Item</label>
-                    <input type="text" id="itemName" placeholder="Contoh: Nasi Goreng, Mie Ayam, Es Teh" autocomplete="off">
-                </div>
+                <div class="form-group"><label>🍽 Nama Menu / Item</label><input type="text" id="itemName" placeholder="Contoh: Nasi Goreng, Mie Ayam"></div>
                 <div class="price-row">
-                    <div class="form-group">
-                        <label>📦 Jumlah</label>
-                        <input type="number" id="qty" value="1" min="1">
-                    </div>
-                    <div class="form-group">
-                        <label>💲 Harga Satuan (Rp)</label>
-                        <input type="number" id="price" value="15000" min="0" step="500">
-                    </div>
+                    <div class="form-group"><label>📦 Jumlah</label><input type="number" id="qty" value="1" min="1"></div>
+                    <div class="form-group"><label>💲 Harga Satuan</label><input type="number" id="price" value="15000" min="0" step="500"></div>
                 </div>
-                <div class="form-group">
-                    <label>💳 Metode Pembayaran</label>
-                    <select id="paymentMethod">
-                        <option value="Cash">💵 Cash (Tunai)</option>
-                        <option value="QRIS">📱 QRIS</option>
-                    </select>
-                </div>
-                <div class="total-bayar">
-                    <span>💰 Total :</span>
-                    <span id="previewTotal">Rp0</span>
-                </div>
-                <button id="saveTransactionBtn">💾 Simpan Transaksi</button>
+                <div class="form-group"><label>💳 Metode Pembayaran</label><select id="paymentMethod"><option value="Cash">💵 Cash (Tunai)</option><option value="QRIS">📱 QRIS</option></select></div>
+                <div class="total-bayar"><span>💰 Total :</span><span id="previewTotal">Rp0</span></div>
+                <button id="cetakStrukManualBtn" class="btn-cetak">🖨️ Cetak Struk (Pending)</button>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 2px dashed #c8e6c9; padding-top: 20px;">
+                <h3 style="font-size:1rem; margin-bottom:12px;">✅ Konfirmasi Pembayaran</h3>
+                <div class="form-group"><label>🔑 Masukkan Kode Struk</label><input type="text" id="kodeKonfirmasi" placeholder="Contoh: PB-20260507-001"></div>
+                <button id="konfirmasiBtn" class="btn-konfirmasi">✔️ Konfirmasi Lunas</button>
             </div>
 
             <button id="resetAllBtn" class="btn-reset">🗑️ Hapus Semua Data</button>
-
-            <div class="alur-info">
-                🔄 <strong>Alur Siklus Sistem</strong><br>
-                1. Pelanggan pesan → 2. Kasir pilih menu atau input manual → 3. Sistem hitung total otomatis<br>
-                4. Pilih metode bayar (Cash/QRIS) → 5. Simpan transaksi → 6. Data tersimpan & ringkasan diperbarui.
-            </div>
         </div>
 
-        <!-- RIWAYAT TRANSAKSI -->
         <div class="history-section">
-            <h2>📋 Riwayat Transaksi Hari Ini</h2>
+            <h2>📋 Riwayat Transaksi</h2>
             <div style="overflow-x: auto;">
-                <table class="transaksi-table" id="transaksiTable">
+                <table class="transaksi-table">
                     <thead>
-                        <tr>
-                            <th>Waktu</th>
-                            <th>Item</th>
-                            <th>Jml</th>
-                            <th>Total</th>
-                            <th>Metode</th>
-                            <th style="width: 40px;"></th>
-                        </tr>
+                        <tr><th>Waktu</th><th>Kode</th><th>Item</th><th>Jml</th><th>Total</th><th>Metode</th><th>Status</th><th></th></tr>
                     </thead>
-                    <tbody id="transaksiBody">
-                        <tr><td colspan="6" style="text-align:center;">Belum ada transaksi</td></tr>
-                    </tbody>
+                    <tbody id="transaksiBody"></tbody>
                 </table>
             </div>
             <div style="margin-top: 16px; font-size:0.75rem; color:#5d6b3f;">
-                ✅ Data tersimpan otomatis di browser (localStorage). Tutup browser pun tetap aman.
+                💡 Alur: Cetak struk → pelanggan bayar → input kode → klik Konfirmasi Lunas
             </div>
         </div>
     </div>
 
-    <div class="footer-note">
-        ⚡ Sistem Informasi Akuntansi - Siklus Penerimaan | Kelompok 1 | Warung Pica Bibir | 2026
+    <div class="footer-note no-print">
+        ⚡ Sistem Informasi Akuntansi - Siklus Penerimaan | Warung Pica Bibir | 2026
     </div>
 </div>
 
@@ -697,11 +595,10 @@ const MENU_DATA = {
 
 // ======================== STATE ========================
 let transactions = [];
-let selectedItems = {}; // { "nama menu": { nama, harga, qty } }
+let selectedItems = {};
 let currentTab = 'makanan';
 let currentMode = 'pilih';
-
-const STORAGE_KEY = "PicaBibir_Transaksi";
+const STORAGE_KEY = "PicaBibir_Transaksi_Struk";
 
 // ======================== HELPERS ========================
 function formatRupiah(angka) {
@@ -714,12 +611,22 @@ function formatRupiahFull(angka) {
 }
 
 function escapeHtml(str) {
+    if (!str) return '';
     return str.replace(/[&<>]/g, function(m) {
-        if(m === '&') return '&amp;';
-        if(m === '<') return '&lt;';
-        if(m === '>') return '&gt;';
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
         return m;
     });
+}
+
+function generateKodeUnik() {
+    const now = new Date();
+    const tahun = now.getFullYear();
+    const bulan = (now.getMonth() + 1).toString().padStart(2, '0');
+    const tgl = now.getDate().toString().padStart(2, '0');
+    const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+    return `PB-${tahun}${bulan}${tgl}-${random}`;
 }
 
 // ======================== MODE SWITCH ========================
@@ -745,11 +652,16 @@ function switchMode(mode) {
 }
 
 // ======================== TAB KATEGORI ========================
-function switchTab(el, tab) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    el.classList.add('active');
-    currentTab = tab;
-    renderMenuGrid();
+function setupTabs() {
+    const tabs = document.querySelectorAll('#kategoriTabs .tab-btn');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            currentTab = this.getAttribute('data-tab');
+            renderMenuGrid();
+        });
+    });
 }
 
 // ======================== RENDER MENU GRID ========================
@@ -759,20 +671,18 @@ function renderMenuGrid() {
     grid.innerHTML = '';
 
     items.forEach(item => {
-        const key = item.nama;
-        const isSelected = !!selectedItems[key];
+        const isSelected = !!selectedItems[item.nama];
         const btn = document.createElement('button');
         btn.className = 'menu-item-btn' + (isSelected ? ' selected' : '');
         btn.innerHTML = `
             <span class="menu-item-name">${escapeHtml(item.nama)}</span>
             <span class="menu-item-price">${formatRupiah(item.harga)}</span>
         `;
-        btn.onclick = () => toggleMenuItem(item);
+        btn.onclick = (function(i) { return function() { toggleMenuItem(i); }; })(item);
         grid.appendChild(btn);
     });
 }
 
-// ======================== TOGGLE ITEM ========================
 function toggleMenuItem(item) {
     const key = item.nama;
     if (selectedItems[key]) {
@@ -803,7 +713,6 @@ function clearAllSelected() {
     updateTotalPilih();
 }
 
-// ======================== RENDER CHIPS ========================
 function renderChips() {
     const container = document.getElementById('chipsContainer');
     const keys = Object.keys(selectedItems);
@@ -821,26 +730,38 @@ function renderChips() {
         chip.innerHTML = `
             <span>${escapeHtml(item.nama)} ${item.harga === 0 ? '(Gratis)' : ''}</span>
             <div class="chip-qty-ctrl">
-                <button class="chip-qty-btn" onclick="changeQty('${CSS.escape(key)}', -1)">−</button>
+                <button class="chip-qty-btn" data-key="${CSS.escape(key)}" data-delta="-1">−</button>
                 <span class="chip-qty-num">${item.qty}</span>
-                <button class="chip-qty-btn" onclick="changeQty('${CSS.escape(key)}', 1)">+</button>
+                <button class="chip-qty-btn" data-key="${CSS.escape(key)}" data-delta="1">+</button>
             </div>
-            <button class="chip-remove" onclick="removeChip('${CSS.escape(key)}')">×</button>
+            <button class="chip-remove" data-key="${CSS.escape(key)}">×</button>
         `;
         container.appendChild(chip);
     });
+
+    // Attach event listeners
+    container.querySelectorAll('.chip-qty-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            let key = this.getAttribute('data-key');
+            let delta = parseInt(this.getAttribute('data-delta'));
+            const actualKey = Object.keys(selectedItems).find(k => CSS.escape(k) === key) || key;
+            changeQty(actualKey, delta);
+        });
+    });
+    container.querySelectorAll('.chip-remove').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            let key = this.getAttribute('data-key');
+            const actualKey = Object.keys(selectedItems).find(k => CSS.escape(k) === key) || key;
+            delete selectedItems[actualKey];
+            renderMenuGrid();
+            renderChips();
+            updateTotalPilih();
+        });
+    });
 }
 
-function removeChip(key) {
-    // Unescape key (handle CSS.escape)
-    const actualKey = Object.keys(selectedItems).find(k => CSS.escape(k) === key) || key;
-    delete selectedItems[actualKey];
-    renderMenuGrid();
-    renderChips();
-    updateTotalPilih();
-}
-
-// ======================== TOTAL (MODE PILIH) ========================
 function updateTotalPilih() {
     let total = 0;
     Object.values(selectedItems).forEach(item => {
@@ -849,103 +770,228 @@ function updateTotalPilih() {
     document.getElementById('previewTotalPilih').innerText = formatRupiahFull(total);
 }
 
-// ======================== SIMPAN (MODE PILIH) ========================
-document.getElementById('savePilihBtn').addEventListener('click', function () {
-    const keys = Object.keys(selectedItems);
-    if (keys.length === 0) {
-        alert("Pilih setidaknya satu menu terlebih dahulu!");
-        return;
-    }
-
-    const method = document.getElementById('paymentMethodPilih').value;
-    const now = new Date();
-    const waktuStr = `${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
-
-    // Simpan setiap item sebagai transaksi individual
-    keys.forEach(key => {
-        const item = selectedItems[key];
-        const total = item.harga * item.qty;
-        transactions.unshift({
-            id: Date.now() + Math.random(),
-            waktu: waktuStr,
-            item: item.nama,
-            qty: item.qty,
-            price: item.harga,
-            total: total,
-            metode: method
-        });
-    });
-
-    persistTransactions();
-    renderAll();
-
-    // Reset pilihan
-    selectedItems = {};
-    renderMenuGrid();
-    renderChips();
-    updateTotalPilih();
-});
-
-// ======================== MANUAL INPUT ========================
 function updatePreviewTotal() {
     let qty = parseInt(document.getElementById('qty').value) || 0;
     let price = parseInt(document.getElementById('price').value) || 0;
     document.getElementById('previewTotal').innerText = formatRupiahFull(qty * price);
 }
 
-function addTransaction(item, qty, price, method) {
-    if (!item.trim()) { alert("Nama menu / item tidak boleh kosong!"); return false; }
-    if (qty <= 0 || price < 0) { alert("Jumlah dan harga tidak valid!"); return false; }
-    const total = qty * price;
+// ======================== CETAK STRUK ========================
+function cetakStruk() {
+    let items = [];
+    let total = 0;
+    let metode = '';
+
+    if (currentMode === 'pilih') {
+        metode = document.getElementById('paymentMethodPilih').value;
+        for (let key in selectedItems) {
+            let item = selectedItems[key];
+            items.push({
+                nama: item.nama,
+                qty: item.qty,
+                harga: item.harga,
+                subtotal: item.harga * item.qty
+            });
+            total += item.harga * item.qty;
+        }
+    } else {
+        metode = document.getElementById('paymentMethod').value;
+        let nama = document.getElementById('itemName').value.trim();
+        let qty = parseInt(document.getElementById('qty').value) || 0;
+        let harga = parseInt(document.getElementById('price').value) || 0;
+        
+        if (!nama) {
+            alert("Nama menu tidak boleh kosong!");
+            return;
+        }
+        if (qty <= 0) {
+            alert("Jumlah harus lebih dari 0!");
+            return;
+        }
+        
+        items.push({
+            nama: nama,
+            qty: qty,
+            harga: harga,
+            subtotal: qty * harga
+        });
+        total = qty * harga;
+    }
+
+    if (items.length === 0) {
+        alert("Silakan pilih menu atau isi data terlebih dahulu!");
+        return;
+    }
+
+    const kode = generateKodeUnik();
     const now = new Date();
-    const waktuStr = `${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
-    transactions.unshift({ id: Date.now() + Math.random(), waktu: waktuStr, item: item.trim(), qty, price, total, metode: method });
+    const waktuStr = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+
+    // Simpan setiap item sebagai transaksi PENDING
+    for (let item of items) {
+        transactions.unshift({
+            id: Date.now() + Math.random() + Math.random(),
+            waktu: waktuStr,
+            kode: kode,
+            item: item.nama,
+            qty: item.qty,
+            price: item.harga,
+            total: item.subtotal,
+            metode: metode,
+            status: 'PENDING'
+        });
+    }
+
     persistTransactions();
     renderAll();
-    return true;
-}
 
-function onSave() {
-    const item = document.getElementById('itemName').value;
-    const qty = parseInt(document.getElementById('qty').value);
-    const price = parseInt(document.getElementById('price').value);
-    const method = document.getElementById('paymentMethod').value;
-    const success = addTransaction(item, qty, price, method);
-    if (success) {
+    // Reset form setelah cetak
+    if (currentMode === 'pilih') {
+        selectedItems = {};
+        renderMenuGrid();
+        renderChips();
+        updateTotalPilih();
+    } else {
         document.getElementById('itemName').value = '';
         document.getElementById('qty').value = '1';
         document.getElementById('price').value = '15000';
         updatePreviewTotal();
-        document.getElementById('itemName').focus();
+    }
+
+    // Buat HTML struk untuk print
+    const itemsTable = items.map(i => `
+        <tr>
+            <td>${escapeHtml(i.nama)}</td>
+            <td style="text-align:center">${i.qty}</td>
+            <td style="text-align:right">${formatRupiah(i.harga)}</td>
+            <td style="text-align:right">${formatRupiah(i.subtotal)}</td>
+        </tr>
+    `).join('');
+
+    const strukHtml = `
+        <div class="print-struk" style="font-family: 'Courier New', monospace; width: 280px; margin: 0 auto; padding: 16px; font-size: 12px;">
+            <div style="text-align:center;">
+                <h3 style="margin:0;">🍛 WARUNG PICA BIBIR</h3>
+                <p style="margin:4px 0;">Perum Unima blok B, Tondano</p>
+                <p style="margin:4px 0;">📞 0852-XXXX-XXXX</p>
+                <hr style="border-top:1px dashed #000;">
+            </div>
+            <p><strong>Kode Struk:</strong> ${kode}</p>
+            <p><strong>Tgl/Waktu:</strong> ${waktuStr}</p>
+            <hr style="border-top:1px dotted #000;">
+            <table style="width:100%;">
+                <thead>
+                    <tr style="border-bottom:1px solid #000;">
+                        <th style="text-align:left">Item</th>
+                        <th style="text-align:center">Qty</th>
+                        <th style="text-align:right">Harga</th>
+                        <th style="text-align:right">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${itemsTable}
+                </tbody>
+                <tfoot>
+                    <tr style="border-top:1px solid #000;">
+                        <td colspan="3" style="text-align:right"><strong>TOTAL:</strong></td>
+                        <td style="text-align:right"><strong>${formatRupiah(total)}</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <hr style="border-top:1px dotted #000;">
+            <p><strong>Metode Bayar:</strong> ${metode}</p>
+            <hr style="border-top:1px dashed #000;">
+            <p style="text-align:center; color:red;"><strong>⚠️ STATUS: BELUM LUNAS ⚠️</strong></p>
+            <p style="text-align:center; font-size:10px;">Simpan struk ini.<br>Input kode di atas untuk konfirmasi pembayaran.</p>
+            <hr style="border-top:1px solid #000;">
+            <p style="text-align:center;">Terima kasih 🙏<br>Selamat menikmati!</p>
+        </div>
+    `;
+
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Cetak Struk - Warung Pica Bibir</title>
+            <style>
+                * { margin: 0; padding: 0; box-sizing: border-box; }
+                body { font-family: 'Courier New', monospace; background: white; padding: 20px; }
+                @media print {
+                    body { padding: 0; }
+                }
+            </style>
+        </head>
+        <body>
+            ${strukHtml}
+            <script>
+                window.onload = function() {
+                    window.print();
+                    window.onafterprint = function() { window.close(); };
+                };
+            <\/script>
+        </body>
+        </html>
+    `);
+    printWindow.document.close();
+}
+
+// ======================== KONFIRMASI PEMBAYARAN ========================
+function konfirmasiPembayaran() {
+    const kode = document.getElementById('kodeKonfirmasi').value.trim();
+    if (!kode) {
+        alert("Masukkan kode struk terlebih dahulu!");
+        return;
+    }
+
+    let found = false;
+    for (let i = 0; i < transactions.length; i++) {
+        if (transactions[i].kode === kode && transactions[i].status === 'PENDING') {
+            transactions[i].status = 'LUNAS';
+            found = true;
+        }
+    }
+
+    if (found) {
+        persistTransactions();
+        renderAll();
+        document.getElementById('kodeKonfirmasi').value = '';
+        alert(`✅ Pembayaran berhasil dikonfirmasi!\nKode: ${kode} sudah LUNAS.`);
+    } else {
+        alert("❌ Kode tidak ditemukan atau sudah LUNAS!\nPeriksa kembali kode struk.");
     }
 }
 
-document.getElementById('qty').addEventListener('input', updatePreviewTotal);
-document.getElementById('price').addEventListener('input', updatePreviewTotal);
-document.getElementById('saveTransactionBtn').addEventListener('click', onSave);
-
-['itemName','qty','price'].forEach(id => {
-    document.getElementById(id).addEventListener('keypress', e => {
-        if (e.key === 'Enter') { e.preventDefault(); onSave(); }
-    });
-});
-
-// ======================== HAPUS & RESET ========================
+// ======================== CRUD TRANSAKSI ========================
 function deleteTransaction(id) {
-    transactions = transactions.filter(t => t.id != id);
-    persistTransactions();
-    renderAll();
-}
-
-document.getElementById('resetAllBtn').addEventListener('click', function () {
-    if (confirm("⚠️ Hapus SEMUA transaksi? Data tidak dapat dipulihkan.")) {
-        transactions = [];
+    if (confirm("Hapus transaksi ini?")) {
+        transactions = transactions.filter(t => t.id != id);
         persistTransactions();
         renderAll();
     }
-});
+}
 
-// ======================== PERSIST ========================
+function resetAll() {
+    if (confirm("⚠️ HAPUS SEMUA DATA TRANSAKSI?\nData tidak dapat dipulihkan kembali!")) {
+        transactions = [];
+        persistTransactions();
+        renderAll();
+        if (currentMode === 'pilih') {
+            selectedItems = {};
+            renderMenuGrid();
+            renderChips();
+            updateTotalPilih();
+        } else {
+            document.getElementById('itemName').value = '';
+            document.getElementById('qty').value = '1';
+            document.getElementById('price').value = '15000';
+            updatePreviewTotal();
+        }
+        alert("Semua data telah dihapus.");
+    }
+}
+
+// ======================== PERSISTENCE ========================
 function persistTransactions() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
 }
@@ -954,61 +1000,110 @@ function loadTransactions() {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
         try {
-            transactions = JSON.parse(stored);
-            if (!Array.isArray(transactions)) transactions = [];
-        } catch(e) { transactions = []; }
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed)) {
+                transactions = parsed;
+            } else {
+                transactions = [];
+            }
+        } catch(e) {
+            transactions = [];
+        }
+    } else {
+        transactions = [];
     }
     renderAll();
 }
 
-// ======================== RENDER SEMUA ========================
+// ======================== RENDER SUMMARY & TABLE ========================
 function computeSummary() {
-    let total = 0, cashTotal = 0, qrisTotal = 0;
+    let totalLunas = 0;
+    let qrisLunas = 0;
+    let countLunas = 0;
+    let countPending = 0;
+
     transactions.forEach(t => {
-        total += t.total;
-        if (t.metode === "Cash") cashTotal += t.total;
-        else if (t.metode === "QRIS") qrisTotal += t.total;
+        if (t.status === 'LUNAS') {
+            totalLunas += t.total;
+            countLunas++;
+            if (t.metode === 'QRIS') {
+                qrisLunas += t.total;
+            }
+        } else if (t.status === 'PENDING') {
+            countPending++;
+        }
     });
-    return { total, cashTotal, qrisTotal, count: transactions.length };
+
+    return { totalLunas, qrisLunas, countLunas, countPending };
 }
 
 function renderAll() {
-    const s = computeSummary();
-    document.getElementById('totalPenerimaan').innerText = formatRupiahFull(s.total);
-    document.getElementById('jmlTransaksi').innerText = s.count;
-    document.getElementById('totalCash').innerText = formatRupiahFull(s.cashTotal);
-    document.getElementById('totalQris').innerText = formatRupiahFull(s.qrisTotal);
+    const summary = computeSummary();
+    document.getElementById('totalPenerimaan').innerText = formatRupiahFull(summary.totalLunas);
+    document.getElementById('jmlTransaksi').innerText = summary.countLunas;
+    document.getElementById('totalPending').innerText = summary.countPending;
+    document.getElementById('totalQris').innerText = formatRupiahFull(summary.qrisLunas);
 
     const tbody = document.getElementById('transaksiBody');
     if (transactions.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">✨ Belum ada transaksi. Silakan catat penjualan baru ✨</td></tr>`;
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">✨ Belum ada transaksi. Cetak struk untuk memulai ✨</td></tr>';
         return;
     }
+
     let html = '';
-    transactions.forEach(t => {
+    for (let i = 0; i < transactions.length; i++) {
+        const t = transactions[i];
+        const statusBadge = t.status === 'LUNAS' ? 'badge-lunas' : 'badge-pending';
+        const statusText = t.status === 'LUNAS' ? '✅ LUNAS' : '⏳ PENDING';
         const metodeClass = t.metode === 'Cash' ? 'badge-cash' : 'badge-qris';
-        const displayTotal = t.total === 0 ? '<em>Gratis</em>' : formatRupiahFull(t.total);
-        html += `<tr>
-            <td style="white-space:nowrap;">${t.waktu}</td>
-            <td>${escapeHtml(t.item)}</td>
-            <td>${t.qty}</td>
-            <td>${displayTotal}</td>
-            <td><span class="badge ${metodeClass}">${t.metode}</span></td>
-            <td><button class="hapus-transaksi" data-id="${t.id}" title="Hapus">🗑️</button></td>
-        </tr>`;
-    });
+        
+        html += `
+            <tr>
+                <td style="white-space:nowrap;">${escapeHtml(t.waktu)}</td>
+                <td><span class="kode-unik">${escapeHtml(t.kode) || '-'}</span></td>
+                <td>${escapeHtml(t.item)}</td>
+                <td style="text-align:center;">${t.qty}</td>
+                <td>${formatRupiahFull(t.total)}</td>
+                <td><span class="badge ${metodeClass}">${escapeHtml(t.metode)}</span></td>
+                <td><span class="badge ${statusBadge}">${statusText}</span></td>
+                <td><button class="hapus-transaksi" data-id="${t.id}" title="Hapus">🗑️</button></td>
+            </tr>
+        `;
+    }
     tbody.innerHTML = html;
 
+    // Attach delete event listeners
     document.querySelectorAll('.hapus-transaksi').forEach(btn => {
-        btn.addEventListener('click', () => deleteTransaction(parseFloat(btn.getAttribute('data-id'))));
+        btn.addEventListener('click', function() {
+            deleteTransaction(parseFloat(this.getAttribute('data-id')));
+        });
     });
 }
 
+// ======================== EVENT LISTENERS ========================
+document.getElementById('btnModePilih').addEventListener('click', function() { switchMode('pilih'); });
+document.getElementById('btnModeManual').addEventListener('click', function() { switchMode('manual'); });
+document.getElementById('cetakStrukPilihBtn').addEventListener('click', cetakStruk);
+document.getElementById('cetakStrukManualBtn').addEventListener('click', cetakStruk);
+document.getElementById('konfirmasiBtn').addEventListener('click', konfirmasiPembayaran);
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
+document.getElementById('clearSelectedBtn').addEventListener('click', clearAllSelected);
+document.getElementById('qty').addEventListener('input', updatePreviewTotal);
+document.getElementById('price').addEventListener('input', updatePreviewTotal);
+document.getElementById('itemName').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') cetakStruk();
+});
+document.getElementById('kodeKonfirmasi').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') konfirmasiPembayaran();
+});
+
 // ======================== INISIALISASI ========================
 loadTransactions();
+setupTabs();
 renderMenuGrid();
-updatePreviewTotal();
+renderChips();
 updateTotalPilih();
+updatePreviewTotal();
 </script>
 </body>
 </html>
