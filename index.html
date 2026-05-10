@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Kasir Pica Bibir - Struk Digital + Edit Pesanan (FIXED)</title>
+    <title>Kasir Pica Bibir - Struk Digital + Edit Pesanan + Lihat Struk</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -187,31 +187,12 @@
             text-align: left;
             transition: all 0.15s;
         }
-        .menu-item-btn:hover {
-            background: #eff7ea;
-            border-color: #97c293;
-        }
-        .menu-item-btn.selected {
-            background: #1f5420;
-            border-color: #1f5420;
-        }
-        .menu-item-name {
-            font-weight: 700;
-            font-size: 0.8rem;
-            display: block;
-            color: #1a2c3e;  /* default gelap */
-        }
-        .menu-item-btn.selected .menu-item-name {
-            color: white;  /* kontras dengan background hijau */
-        }
-        .menu-item-price {
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: #5a7c56;
-        }
-        .menu-item-btn.selected .menu-item-price {
-            color: #ffecb3; /* warna terang agar terbaca */
-        }
+        .menu-item-btn:hover { background: #eff7ea; border-color: #97c293; }
+        .menu-item-btn.selected { background: #1f5420; border-color: #1f5420; }
+        .menu-item-name { font-weight: 700; font-size: 0.8rem; display: block; color: #1a2c3e; }
+        .menu-item-btn.selected .menu-item-name { color: white; }
+        .menu-item-price { font-size: 0.7rem; font-weight: 500; color: #5a7c56; }
+        .menu-item-btn.selected .menu-item-price { color: #ffecb3; }
         .selected-items-area {
             background: #f8fafd;
             border-radius: 20px;
@@ -295,10 +276,12 @@
         }
         .modal-content {
             background: white;
-            max-width: 400px;
+            max-width: 500px;
             width: 90%;
             border-radius: 32px;
             padding: 24px;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         .table-transaksi {
             width: 100%;
@@ -324,13 +307,14 @@
         }
         .kode-unik { font-family: monospace; background: #f1f5f9; padding: 2px 6px; border-radius: 20px; font-size: 0.7rem; }
         footer { margin-top: 28px; text-align: center; font-size: 0.7rem; color: #8ba18b; }
+        .struk-preview { font-family: monospace; font-size: 12px; }
     </style>
 </head>
 <body>
 <div class="app-container">
     <div class="header no-print">
         <h1><i class="fas fa-utensils"></i> Warung Pica Bibir <span style="font-size: 0.9rem; background: #ecf7e9; padding: 4px 14px; border-radius: 40px;">Siklus Penerimaan Kas</span></h1>
-        <div class="sub"><i class="fas fa-map-marker-alt"></i> Perum Unima blok B, Tondano &nbsp;|&nbsp; <i class="fas fa-credit-card"></i> Cash / QRIS &nbsp;|&nbsp; <i class="fas fa-file-pdf"></i> Struk PDF + Edit Pesanan</div>
+        <div class="sub"><i class="fas fa-map-marker-alt"></i> Perum Unima blok B, Tondano &nbsp;|&nbsp; <i class="fas fa-credit-card"></i> Cash / QRIS &nbsp;|&nbsp; <i class="fas fa-file-pdf"></i> Struk PDF + Edit Pesanan + Lihat Struk</div>
     </div>
 
     <div class="summary-grid no-print">
@@ -385,11 +369,11 @@
                 <table class="table-transaksi">
                     <thead><tr><th>Waktu</th><th>Kode</th><th>Item</th><th>Qty</th><th>Total</th><th>Metode</th><th>Status</th><th>Aksi</th></tr></thead>
                     <tbody id="transaksiBody"></tbody>
-                改表
+                能有
             </div>
             <div class="info-note" style="margin-top: 16px; font-size:0.7rem; background: #eef2fa; border-radius: 20px; padding: 12px;">
                 💡 <strong>Alur:</strong> Cetak Struk → Simpan PDF / print → Pelanggan bayar → Input kode → Konfirmasi Lunas. <br>
-                ✏️ Tombol <i class="fas fa-edit"></i> edit hanya untuk status PENDING.
+                ✏️ Tombol <i class="fas fa-edit"></i> edit hanya untuk status PENDING. &nbsp; 📄 Tombol <i class="fas fa-receipt"></i> Lihat Struk untuk melihat detail pesanan.
             </div>
         </div>
     </div>
@@ -408,6 +392,19 @@
         <div style="display:flex; gap:12px; margin-top:16px;">
             <button id="saveEditBtn" style="background:#2e7d32;">Simpan Perubahan</button>
             <button id="closeModalBtn" class="btn-reset" style="background:#ccc; color:#222;">Batal</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Lihat Struk -->
+<div id="lihatStrukModal" class="modal">
+    <div class="modal-content">
+        <h3 style="margin-bottom: 12px;"><i class="fas fa-receipt"></i> Detail Struk</h3>
+        <div id="strukPreviewContent" class="struk-preview"></div>
+        <div style="display:flex; gap:12px; margin-top:20px;">
+            <button id="cetakStrukPreviewBtn" style="background:#f3a333;"><i class="fas fa-print"></i> Cetak Struk</button>
+            <button id="pdfStrukPreviewBtn" style="background:#d9534f;"><i class="fas fa-file-pdf"></i> Simpan PDF</button>
+            <button id="tutupStrukModalBtn" class="btn-reset" style="background:#ccc; color:#222;">Tutup</button>
         </div>
     </div>
 </div>
@@ -479,8 +476,7 @@ function toggleSelect(item) {
     updateTotalPilih();
 }
 
-// ========== CHIPS dengan event handler global ==========
-// Definisikan handler di luar agar removeEventListener bisa bekerja
+// ========== CHIPS ==========
 function handleChipQty(e) {
     let btn = e.currentTarget;
     let chip = btn.closest('.chip');
@@ -534,7 +530,6 @@ function renderChips() {
         `;
         cont.appendChild(chipDiv);
     });
-    // Pasang event listener ke semua tombol +/-
     document.querySelectorAll('.chip-qty').forEach(btn => {
         btn.removeEventListener('click', handleChipQty);
         btn.addEventListener('click', handleChipQty);
@@ -559,25 +554,42 @@ function updatePreviewTotal() {
     if(el) el.innerText = formatRp(q * p);
 }
 
-// ========== STRUK & PDF ==========
-function buildStrukHTML(itemsArray, total, kode, metode, waktu) {
-    let rows = itemsArray.map(i => `<tr><td>${escapeHtml(i.nama)}</td><td style="text-align:center">${i.qty}</td><td style="text-align:right">${formatRp(i.harga)}</td><td style="text-align:right">${formatRp(i.subtotal)}</td>`).join('');
-    return `<div style="font-family: monospace; width: 300px; margin:0 auto; padding: 16px; font-size: 12px;">
+// ========== STRUK HTML GENERATOR (untuk satu transaksi item) ==========
+function buildStrukHTMLFromTransaction(t) {
+    // Karena setiap transaksi di tabel adalah per-item, kita perlu mengelompokkan berdasarkan kode
+    // Tapi untuk sederhananya, kita tampilkan item itu sendiri. Jika ingin menggabungkan beberapa item dengan kode sama, perlu modifikasi.
+    // Alternatif: kita buat fungsi yang mencari semua transaksi dengan kode yang sama.
+    // Agar lebih baik, kita buat fungsi getItemsByKode(kode)
+    function getItemsByKode(kode) {
+        return transactions.filter(tr => tr.kode === kode);
+    }
+    let items = getItemsByKode(t.kode);
+    let total = items.reduce((sum, i) => sum + i.total, 0);
+    let metode = items[0].metode;
+    let waktu = items[0].waktu;
+    let kode = t.kode;
+    let rows = items.map(i => `<td><td style="text-align:left">${escapeHtml(i.item)}</td><td style="text-align:center">${i.qty}</td><td style="text-align:right">${formatRp(i.price)}</td><td style="text-align:right">${formatRp(i.total)}</td>`).join('');
+    return `<div style="font-family: monospace; width: 100%; margin:0 auto; padding: 16px; font-size: 12px;">
         <div style="text-align:center;"><h3>🍛 WARUNG PICA BIBIR</h3><p>Perum Unima blok B, Tondano</p><hr></div>
         <p><strong>Kode:</strong> ${kode}</p><p><strong>Waktu:</strong> ${waktu}</p><hr>
         <table style="width:100%; border-collapse:collapse;"><thead><tr><th>Item</th><th>Qty</th><th>Harga</th><th>Subtotal</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td colspan="3" style="text-align:right"><strong>Total</strong></td><td style="text-align:right">${formatRp(total)}</td></tr></tfoot></table>
-        <hr><p><strong>Metode:</strong> ${metode}</p><p style="color:red; text-align:center">⚠️ BELUM LUNAS ⚠️</p><hr><p style="text-align:center">Terima kasih 🙏</p></div>`;
+        <hr><p><strong>Metode:</strong> ${metode}</p><p style="color:${t.status === 'LUNAS' ? 'green' : 'red'}; text-align:center">${t.status === 'LUNAS' ? '✅ SUDAH LUNAS' : '⚠️ BELUM LUNAS ⚠️'}</p><hr><p style="text-align:center">Terima kasih 🙏</p></div>`;
 }
 
-async function exportAsPDF(htmlContent, filename='struk_pemesanan.pdf') {
+// ========== CETAK / PDF ==========
+async function exportAsPDF(htmlContent, filename='struk.pdf') {
     if (typeof html2pdf === 'undefined') {
-        alert("Maaf, fitur PDF tidak tersedia karena library gagal dimuat. Silakan coba dengan koneksi internet atau gunakan tombol Cetak biasa.");
+        alert("Fitur PDF tidak tersedia. Silakan coba dengan koneksi internet atau gunakan tombol Cetak biasa.");
         return;
     }
-    let element = document.createElement('div'); 
-    element.innerHTML = htmlContent;
+    let wrapper = document.createElement('div');
+    wrapper.style.padding = '20px';
+    wrapper.style.backgroundColor = 'white';
+    wrapper.innerHTML = htmlContent;
+    document.body.appendChild(wrapper);
     let opt = { margin: [0.5,0.5,0.5,0.5], filename: filename, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
-    await html2pdf().set(opt).from(element).save();
+    await html2pdf().set(opt).from(wrapper).save();
+    document.body.removeChild(wrapper);
 }
 
 function prosesCetak(isPDF = false) {
@@ -607,12 +619,21 @@ function prosesCetak(isPDF = false) {
     }
     persist(); 
     renderAll();
-    let strukHtml = buildStrukHTML(items, total, kode, metode, waktu);
+    let strukHtml = buildStrukHTMLFromTransaction(transactions[0]); // ambil pertama sebagai contoh, tapi sebenarnya bisa khusus
+    // Perbaiki: buat struk dari semua item dengan kode yang sama
+    let allItemsWithSameKode = transactions.filter(t => t.kode === kode);
+    let tTemp = allItemsWithSameKode[0];
+    let rows = allItemsWithSameKode.map(i => `<tr><td style="text-align:left">${escapeHtml(i.item)}</td><td style="text-align:center">${i.qty}</td><td style="text-align:right">${formatRp(i.price)}</td><td style="text-align:right">${formatRp(i.total)}</td>`).join('');
+    let fullStruk = `<div style="font-family: monospace; width: 300px; margin:0 auto; padding: 16px; font-size: 12px;">
+        <div style="text-align:center;"><h3>🍛 WARUNG PICA BIBIR</h3><p>Perum Unima blok B, Tondano</p><hr></div>
+        <p><strong>Kode:</strong> ${kode}</p><p><strong>Waktu:</strong> ${waktu}</p><hr>
+        <table style="width:100%"><thead><tr><th>Item</th><th>Qty</th><th>Harga</th><th>Subtotal</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td colspan="3" style="text-align:right"><strong>Total</strong></td><td style="text-align:right">${formatRp(total)}</td></tr></tfoot></table>
+        <hr><p><strong>Metode:</strong> ${metode}</p><p style="color:red; text-align:center">⚠️ BELUM LUNAS ⚠️</p><hr><p style="text-align:center">Terima kasih 🙏</p></div>`;
     if(isPDF) { 
-        exportAsPDF(strukHtml, `struk_${kode}.pdf`); 
+        exportAsPDF(fullStruk, `struk_${kode}.pdf`); 
     } else { 
         let w = window.open('', '_blank'); 
-        w.document.write(`<html><head><style>body{font-family:monospace;padding:20px;}</style></head><body>${strukHtml}<script>window.onload=function(){window.print();window.onafterprint=function(){window.close();}}<\/script></body></html>`); 
+        w.document.write(`<html><head><style>body{font-family:monospace;padding:20px;}</style></head><body>${fullStruk}<script>window.onload=function(){window.print();window.onafterprint=function(){window.close();}}<\/script></body></html>`); 
         w.document.close(); 
     }
     if(currentMode==='pilih') { 
@@ -628,7 +649,7 @@ function prosesCetak(isPDF = false) {
     }
 }
 
-// ========== KONFIRMASI ==========
+// ========== KONFIRMASI BAYAR ==========
 function konfirmasiBayar() { 
     let kode = document.getElementById('kodeKonfirmasi').value.trim(); 
     let found = false; 
@@ -694,6 +715,41 @@ function resetAll() {
     } 
 }
 
+// ========== LIHAT STRUK ==========
+let currentViewKode = null;
+function lihatStruk(kode) {
+    currentViewKode = kode;
+    let items = transactions.filter(t => t.kode === kode);
+    if(items.length === 0) return;
+    let total = items.reduce((s,i)=>s+i.total,0);
+    let metode = items[0].metode;
+    let waktu = items[0].waktu;
+    let rows = items.map(i => `<tr><td style="text-align:left">${escapeHtml(i.item)}</td><td style="text-align:center">${i.qty}</td><td style="text-align:right">${formatRp(i.price)}</td><td style="text-align:right">${formatRp(i.total)}</td>`).join('');
+    let status = items[0].status;
+    let statusText = status === 'LUNAS' ? '✅ SUDAH LUNAS' : '⚠️ BELUM LUNAS ⚠️';
+    let statusColor = status === 'LUNAS' ? 'green' : 'red';
+    let strukHtml = `<div style="font-family: monospace; width: 100%; margin:0 auto; padding: 16px; font-size: 12px;">
+        <div style="text-align:center;"><h3>🍛 WARUNG PICA BIBIR</h3><p>Perum Unima blok B, Tondano</p><hr></div>
+        <p><strong>Kode:</strong> ${kode}</p><p><strong>Waktu:</strong> ${waktu}</p><hr>
+        <table style="width:100%; border-collapse:collapse;"><thead><tr><th>Item</th><th>Qty</th><th>Harga</th><th>Subtotal</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td colspan="3" style="text-align:right"><strong>Total</strong></td><td style="text-align:right">${formatRp(total)}</td></tr></tfoot></table>
+        <hr><p><strong>Metode:</strong> ${metode}</p><p style="color:${statusColor}; text-align:center">${statusText}</p><hr><p style="text-align:center">Terima kasih 🙏</p></div>`;
+    document.getElementById('strukPreviewContent').innerHTML = strukHtml;
+    document.getElementById('lihatStrukModal').style.display = 'flex';
+}
+
+function cetakPreview() {
+    let content = document.getElementById('strukPreviewContent').innerHTML;
+    let w = window.open('', '_blank');
+    w.document.write(`<html><head><style>body{font-family:monospace;padding:20px;}</style></head><body>${content}<script>window.onload=function(){window.print();window.onafterprint=function(){window.close();}}<\/script></body></html>`);
+    w.document.close();
+}
+
+function pdfPreview() {
+    let content = document.getElementById('strukPreviewContent').innerHTML;
+    exportAsPDF(content, `struk_${currentViewKode}.pdf`);
+}
+
+// ========== RENDER TABEL ==========
 function renderAll() {
     let totalLunas=0, qrisLunas=0, countLunas=0, countPending=0;
     transactions.forEach(t=>{
@@ -708,7 +764,7 @@ function renderAll() {
     let tbody = document.getElementById('transaksiBody');
     if(!tbody) return;
     if(transactions.length===0) {
-        tbody.innerHTML = '<tr><td colspan="8">Belum ada transaksi</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9">Belum ada transaksi</td>' + '</tr>';
         return;
     }
     let html = '';
@@ -722,9 +778,10 @@ function renderAll() {
             <td>${formatRp(t.total)}</td>
             <td>${escapeHtml(t.metode)}</td>
             <td><span class="badge ${statusClass}">${t.status}</span></td>
-            <td>
+            <td style="white-space: nowrap;">
                 <button class="btn-sm btn-edit" onclick="openEdit(${t.id})"><i class="fas fa-edit"></i> Edit</button>
                 <button class="btn-sm" style="background:#c0392b;" onclick="deleteTransaksi(${t.id})"><i class="fas fa-trash"></i> Hapus</button>
+                <button class="btn-sm" style="background:#2c6e9e;" onclick="lihatStruk('${t.kode}')"><i class="fas fa-receipt"></i> Lihat Struk</button>
             </td>
         </tr>`;
     });
@@ -766,6 +823,9 @@ document.getElementById('qty')?.addEventListener('input', updatePreviewTotal);
 document.getElementById('price')?.addEventListener('input', updatePreviewTotal);
 document.getElementById('saveEditBtn').onclick = saveEdit;
 document.getElementById('closeModalBtn').onclick = () => document.getElementById('editModal').style.display = 'none';
+document.getElementById('cetakStrukPreviewBtn').onclick = cetakPreview;
+document.getElementById('pdfStrukPreviewBtn').onclick = pdfPreview;
+document.getElementById('tutupStrukModalBtn').onclick = () => document.getElementById('lihatStrukModal').style.display = 'none';
 
 // ========== INIT ==========
 loadData();
@@ -774,7 +834,10 @@ renderMenuGrid();
 renderChips();
 updateTotalPilih();
 updatePreviewTotal();
-window.onclick = (e) => { if(e.target === document.getElementById('editModal')) document.getElementById('editModal').style.display = 'none'; };
+window.onclick = (e) => { 
+    if(e.target === document.getElementById('editModal')) document.getElementById('editModal').style.display = 'none';
+    if(e.target === document.getElementById('lihatStrukModal')) document.getElementById('lihatStrukModal').style.display = 'none';
+};
 </script>
 </body>
 </html>
